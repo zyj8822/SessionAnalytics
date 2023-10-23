@@ -18,6 +18,6 @@ RUN echo 'Asia/Shanghai' >/etc/timezone
 
 COPY --from=builder /project/target/userpath-0.0.1-SNAPSHOT.jar /userpath.jar
 
-ENTRYPOINT [ "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-Duser.timezone=GMT+08", "/userpath.jar"]
+ENTRYPOINT [ "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-Duser.timezone=GMT+08", "/userpath.jar", "--spring.profiles.active=prod"]
 
 EXPOSE 8080

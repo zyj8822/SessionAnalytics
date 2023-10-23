@@ -8,4 +8,7 @@ classes
 target/
 drug-server/target
 drug-stub/target
-
+.settings
+.classpath
+.factorypath
+.project

@@ -6,9 +6,9 @@ spring:
       max-request-size: 500MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username:
-    password:
-    url: jdbc:mysql://x.x.x.x:3306/db?serverTimezone=CTT&useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: ymcd
+    password: P@ssw0rd
+    url: jdbc:mysql://111.229.162.129:3306/tencent_sa?serverTimezone=CTT&useSSL=false&useUnicode=true&characterEncoding=utf-8
     tomcat:
       #最大连接等待超时时间
       max-wait: 10000
@@ -37,8 +37,8 @@ spring:
     content-type: text/html
     mode: HTML5
   redis:
-    host:
-    port:
+    host: 154.8.183.119
+    port: 6379
     password:
     timeout: 600     #连接超时时间（毫秒）
     pool:

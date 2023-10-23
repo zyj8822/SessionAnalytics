@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS t_user_log_upload_split_status;
 CREATE TABLE `t_user_log_upload_split_status` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `f_upload_user` varchar(128) DEFAULT NULL COMMENT '上传人',
@@ -20,14 +21,15 @@ CREATE TABLE `t_user_log_upload_split_status` (
   `f_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='excel上传切分状态'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='excel上传切分状态';
 
 
 alter table t_user_log_upload_split_status add index idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id);
 
 
-0:等待中 1：成功  2：进行中  3：失败
 
+
+DROP TABLE IF EXISTS t_user_log_orig;
 
 CREATE TABLE `t_user_log_orig` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -46,11 +48,11 @@ CREATE TABLE `t_user_log_orig` (
   `f_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户原始上传日志'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户原始上传日志';
 
 
 
-
+DROP TABLE IF EXISTS t_session_log_event;
 
 CREATE TABLE `t_session_log_event` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -73,10 +75,8 @@ CREATE TABLE `t_session_log_event` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户日志session event'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户日志session event';
 
-
-alter table t_session_log_event add index idx_user_version_make(f_user_scene_version_id,f_make_version_id,f_user_id);
 
 
 alter table t_session_log_event add index idx_user_version_make(f_user_scene_version_id,f_make_version_id,f_user_id);
@@ -97,6 +97,8 @@ alter table t_session_log_event add index idx_user_version_make_channel(f_user_s
  alter table t_session_log_event add index idx_user_version_make_category(f_user_scene_version_id,f_make_version_id,f_user_id,f_category);
 
 
+
+DROP TABLE IF EXISTS t_session_log_event_distinct;
 
 CREATE TABLE `t_session_log_event_distinct` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -119,7 +121,7 @@ CREATE TABLE `t_session_log_event_distinct` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户日志session event去重'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户日志session event去重';
 
 
 
@@ -127,6 +129,7 @@ CREATE TABLE `t_session_log_event_distinct` (
 
 
 
+DROP TABLE IF EXISTS t_session_event_sankey;
 
 
 CREATE TABLE `t_session_event_sankey` (
@@ -153,9 +156,10 @@ CREATE TABLE `t_session_event_sankey` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='session路径event sankey汇总表'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='session路径event sankey汇总表';
 
 
+DROP TABLE IF EXISTS t_session_event_distinct_sankey;
 
 
 CREATE TABLE `t_session_event_distinct_sankey` (
@@ -182,12 +186,13 @@ CREATE TABLE `t_session_event_distinct_sankey` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='session路径event去重sankey汇总表'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='session路径event去重sankey汇总表';
 
 
 
 
 
+DROP TABLE IF EXISTS t_role_info;
 CREATE TABLE `t_role_info` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `f_user` varchar(128) DEFAULT NULL COMMENT '用户',
@@ -196,21 +201,23 @@ CREATE TABLE `t_role_info` (
   `f_version` varchar(128) DEFAULT NULL COMMENT 'ALL/中英文',
   `f_mod` varchar(128) DEFAULT NULL COMMENT 'ALL/模块:home,upload,data_governance,data_select,statistics,sankey,funnel,chord,tree,trend,clustering,management,help',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='权限管理表'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='权限管理表';
 
 
 alter table t_role_info add index idx_user(f_user);
 
 
+DROP TABLE IF EXISTS t_category_color;
 CREATE TABLE `t_category_color` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `f_category` varchar(128) DEFAULT NULL COMMENT '大类',
   `f_color` varchar(128) DEFAULT NULL COMMENT '颜色',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='大类颜色记录表'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='大类颜色记录表';
 
 
 
+DROP TABLE IF EXISTS t_recent_access_records;
 CREATE TABLE `t_recent_access_records` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `f_analysis_name_first` varchar(128) DEFAULT NULL COMMENT '桑基图分析/漏斗图分析',
@@ -226,12 +233,12 @@ CREATE TABLE `t_recent_access_records` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='访问记录'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='访问记录';
 
 
 
 
-
+DROP TABLE IF EXISTS t_user_log_cluster_analysis;
 
 CREATE TABLE `t_user_log_cluster_analysis` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增id',
@@ -249,12 +256,13 @@ CREATE TABLE `t_user_log_cluster_analysis` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户聚类分析'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户聚类分析';
 
 
 alter table t_user_log_cluster_analysis add index idx_user_version_make(f_user_scene_version_id,f_make_version_id,f_user_id);
 
 
+DROP TABLE IF EXISTS t_user_log_cluster_k;
 CREATE TABLE `t_user_log_cluster_k` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `f_cluster_type` varchar(128) DEFAULT NULL COMMENT '聚类类型kmeans/dtw',
@@ -269,10 +277,10 @@ CREATE TABLE `t_user_log_cluster_k` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户聚类分析拐点'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户聚类分析拐点';
 
 
-
+DROP TABLE IF EXISTS t_user_log_make;
 CREATE TABLE `t_user_log_make` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `f_type` varchar(128) DEFAULT NULL COMMENT 'event/category/subcategory',
@@ -287,10 +295,10 @@ CREATE TABLE `t_user_log_make` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户日志数据治理'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='用户日志数据治理';
 
 
-
+DROP TABLE IF EXISTS t_user_log_orig_make;
 CREATE TABLE `t_user_log_orig_make` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `f_user_id` varchar(128) DEFAULT NULL COMMENT '用户id',
@@ -310,7 +318,7 @@ CREATE TABLE `t_user_log_orig_make` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY `idx_user_scene_version_make_id` (`f_user_scene_version_id`,`f_make_version_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='原始上传日志治理结果'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='原始上传日志治理结果';
 
 
 alter table t_user_log_orig_make add index idx_user_scene_version_category(f_user_scene_version_id,f_make_version_id,f_category);
@@ -320,7 +328,7 @@ alter table t_user_log_orig_make add index idx_user_scene_version_subcategory(f_
 alter table t_user_log_orig_make add index idx_user_scene_version_event(f_user_scene_version_id,f_make_version_id,f_event);
 
 
-
+DROP TABLE IF EXISTS t_user_log_event_pv_distribute;
 CREATE TABLE `t_user_log_event_pv_distribute` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `f_type` varchar(128) DEFAULT NULL COMMENT 'all/channel/age等',
@@ -338,9 +346,10 @@ CREATE TABLE `t_user_log_event_pv_distribute` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='pv分布计算'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='pv分布计算';
 
 
+DROP TABLE IF EXISTS t_user_log_event_dim_pv_distribute;
 CREATE TABLE `t_user_log_event_dim_pv_distribute` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `f_type` varchar(128) DEFAULT NULL COMMENT 'all/channel/age等',
@@ -360,7 +369,7 @@ CREATE TABLE `t_user_log_event_dim_pv_distribute` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='pv分布计算分维度'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='pv分布计算分维度';
 
 
 
@@ -368,7 +377,7 @@ CREATE TABLE `t_user_log_event_dim_pv_distribute` (
 
 
 
-
+DROP TABLE IF EXISTS t_user_log_event_session_distribute;
 CREATE TABLE `t_user_log_event_session_distribute` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `f_type` varchar(128) DEFAULT NULL COMMENT 'all/channel/age等',
@@ -386,9 +395,10 @@ CREATE TABLE `t_user_log_event_session_distribute` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='session分布计算'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='session分布计算';
 
 
+DROP TABLE IF EXISTS t_user_log_event_dim_session_distribute;
 CREATE TABLE `t_user_log_event_dim_session_distribute` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `f_type` varchar(128) DEFAULT NULL COMMENT 'all/channel/age等',
@@ -408,10 +418,11 @@ CREATE TABLE `t_user_log_event_dim_session_distribute` (
   PRIMARY KEY (`id`),
   KEY `idx_user_scene_version_id` (`f_user_scene_version_id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='session分布计算分维度'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='session分布计算分维度';
 
 
 
+DROP TABLE IF EXISTS t_session_node;
 CREATE TABLE `t_session_node` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `f_category` varchar(128) DEFAULT NULL COMMENT '大类',
@@ -422,10 +433,10 @@ CREATE TABLE `t_session_node` (
   `f_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='数据挖掘node表'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='数据挖掘node表';
 
 
-
+DROP TABLE IF EXISTS t_session_single;
 
 CREATE TABLE `t_session_single` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
@@ -437,9 +448,11 @@ CREATE TABLE `t_session_single` (
   `f_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='数据挖掘single表'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='数据挖掘single表';
 
 
+
+DROP TABLE IF EXISTS t_session_single_networkx;
 CREATE TABLE `t_session_single_networkx` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
   `f_event_name` varchar(128) DEFAULT NULL COMMENT '节点名称',
@@ -449,8 +462,9 @@ CREATE TABLE `t_session_single_networkx` (
   `f_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY idx_user_scene_version_make(f_user_scene_version_id,f_make_version_id)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='特征向量中心度的计算值'
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='特征向量中心度的计算值';
 
+DROP TABLE IF EXISTS t_user;
 CREATE TABLE `t_user` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `username` varchar(128) DEFAULT NULL COMMENT '用户名',
@@ -458,7 +472,7 @@ CREATE TABLE `t_user` (
   `f_create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `f_update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB AUTO_INCREMENT = 45 DEFAULT CHARSET = utf8 COMMENT = '用户名密码表'
+) ENGINE = InnoDB AUTO_INCREMENT = 45 DEFAULT CHARSET = utf8 COMMENT = '用户名密码表';
 
 
 

@@ -1,4 +1,4 @@
-FROM registry.cn-beijing.aliyuncs.com/kdt/node:carbon as builder
+FROM node:14.21.3 as builder
 RUN mkdir /project
 COPY ./UserPathFront/package.json /project/
 WORKDIR /project

@@ -37,7 +37,7 @@ spring:
     content-type: text/html
     mode: HTML5
   redis:
-    host: 154.8.183.119
+    host: 172.17.0.8
     port: 6379
     password:
     timeout: 600     #连接超时时间（毫秒）

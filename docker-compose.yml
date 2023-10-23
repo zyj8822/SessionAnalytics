@@ -11,14 +11,14 @@ services:
       - ./:/project/uploadPath
   
 
-  # nginxservice:
-  #   build:
-  #     dockerfile: Dockerfile-nginx
-  #   image: nginxservice:v0
-  #   container_name: nginxservice
-  #   depends_on:
-  #     - javaservice
-  #   links:
-  #     - javaservice
-  #   ports:
-  #     - "18090:18090"
+  sa_front_service:
+    build:
+      dockerfile: Dockerfile-nginx
+    image: sa_front_service:v0
+    container_name: sa_front_service
+    depends_on:
+      - saservice
+    links:
+      - saservice
+    ports:
+      - "13090:13090"

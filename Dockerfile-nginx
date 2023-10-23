@@ -1,0 +1,14 @@
+FROM registry.cn-beijing.aliyuncs.com/kdt/node:carbon as builder
+RUN mkdir /project
+COPY ./UserPathFront/package.json /project/
+WORKDIR /project
+RUN npm install
+COPY ./UserPathFront/ /project/
+WORKDIR /project
+RUN npm run build:pub
+
+FROM registry.cn-beijing.aliyuncs.com/kdt/nginx:latest
+COPY --from=builder /project/dist /project/
+COPY ./docker-nginx.conf /etc/nginx/conf.d/
+EXPOSE 13090
+CMD [ "nginx","-g","daemon off;" ]

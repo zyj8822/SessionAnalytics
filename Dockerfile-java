@@ -4,6 +4,12 @@ RUN mkdir /project
 
 COPY settings.xml /usr/share/maven/conf/settings.xml
 
+COPY ./UserPathBack/pom.xml /project/
+
+WORKDIR /project/
+
+RUN mvn dependency:go-offline
+
 COPY ./UserPathBack/ /project/
 
 WORKDIR /project/

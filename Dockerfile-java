@@ -16,7 +16,7 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 RUN echo 'Asia/Shanghai' >/etc/timezone
 
-COPY --from=builder /project/target/userpath.jar /
+COPY --from=builder /project/target/userpath-0.0.1-SNAPSHOT.jar /userpath.jar
 
 ENTRYPOINT [ "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "-Duser.timezone=GMT+08", "/userpath.jar"]
 

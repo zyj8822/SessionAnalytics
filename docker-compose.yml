@@ -1,0 +1,24 @@
+version: '3.8'
+services: 
+  saservice:
+    build:
+      dockerfile: Dockerfile-java
+    image: saservice:v0
+    container_name: saservice
+    ports:
+      - "33080:8080"
+    volumes:
+      - ./:/project/uploadPath
+  
+
+  # nginxservice:
+  #   build:
+  #     dockerfile: Dockerfile-nginx
+  #   image: nginxservice:v0
+  #   container_name: nginxservice
+  #   depends_on:
+  #     - javaservice
+  #   links:
+  #     - javaservice
+  #   ports:
+  #     - "18090:18090"
